@@ -5,7 +5,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat'
 
 export default defineConfig([
   {
-    ignores: ['webpack*.js'],
+    ignores: ['webpack*.js', 'babel.config.js'],
   },
   {
     files: ['**/*.{js,mjs,cjs}'],
@@ -16,5 +16,13 @@ export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs}'],
     languageOptions: { globals: globals.browser },
+  },
+  {
+    files: ['tests/*.test.js'],
+    plugins: ['jest'],
+    extends: ['plugin:jest/recommended'],
+    env: {
+      jest: true,
+    },
   },
 ])
