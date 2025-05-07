@@ -5,7 +5,7 @@ test('initial gameboard', () => {
   const gameboard = new Gameboard()
 
   const allNull = gameboard.board.every((row) =>
-    row.every((cell) => cell === null)
+    row.every((cell) => cell.isEmpty())
   )
   expect(allNull).toBe(true)
 })
@@ -15,11 +15,11 @@ test('place ship horizontal', () => {
   const ship = new Ship(4)
   gameboard.placeShip(ship, 1, 1, 'horizontal')
 
-  expect(gameboard.board[1][1]).toBe(ship)
-  expect(gameboard.board[1][2]).toBe(ship)
-  expect(gameboard.board[1][3]).toBe(ship)
-  expect(gameboard.board[1][4]).toBe(ship)
-  expect(gameboard.board[1][5]).toBe('.')
+  expect(gameboard.board[1][1].isShip()).toBe(true)
+  expect(gameboard.board[1][2].isShip()).toBe(true)
+  expect(gameboard.board[1][3].isShip()).toBe(true)
+  expect(gameboard.board[1][4].isShip()).toBe(true)
+  expect(gameboard.board[1][5].isBlocked()).toBe(true)
 })
 
 test('place ship vertical', () => {
@@ -27,12 +27,11 @@ test('place ship vertical', () => {
   const ship = new Ship(4)
   gameboard.placeShip(ship, 1, 1, 'vertical')
 
-  expect(gameboard.board[1][1]).toBe(ship)
-  expect(gameboard.board[2][1]).toBe(ship)
-  expect(gameboard.board[3][1]).toBe(ship)
-  expect(gameboard.board[4][1]).toBe(ship)
-  expect(gameboard.board[5][1]).toBe('.')
-  console.log(gameboard)
+  expect(gameboard.board[1][1].isShip()).toBe(true)
+  expect(gameboard.board[2][1].isShip()).toBe(true)
+  expect(gameboard.board[3][1].isShip()).toBe(true)
+  expect(gameboard.board[4][1].isShip()).toBe(true)
+  expect(gameboard.board[5][1].isBlocked()).toBe(true)
 })
 
 test('ship goes beyond the board ', () => {
@@ -79,27 +78,26 @@ test('finalizeboard', () => {
   const gameboard = new Gameboard()
   const ship = new Ship(4)
   gameboard.placeShip(ship, 1, 1, 'vertical')
-  expect(gameboard.board[0][0]).toBe('.')
+  expect(gameboard.board[0][0].isBlocked()).toBe(true)
   gameboard.finalizeBoard()
-  expect(gameboard.board[0][0]).toBe(null)
-  expect(gameboard.board[1][1]).toEqual({ ship: ship, isHit: false })
+  expect(gameboard.board[0][0].isEmpty()).toBe(true)
+  expect(gameboard.board[1][1].isShip()).toBe(true)
 })
 
 test('recieveAttack is missed', () => {
   const gameboard = new Gameboard()
   const ship = new Ship(4)
   gameboard.placeShip(ship, 1, 1, 'vertical')
-  gameboard.finalizeBoard()
   expect(gameboard.recieveAttack(9, 9)).toBe(false)
-  expect(gameboard.board[9][9]).toBe('.')
+  expect(gameboard.board[9][9].isMiss()).toBe(true)
 })
 
 test('recieveAttack is targeted', () => {
   const gameboard = new Gameboard()
   const ship = new Ship(4)
   gameboard.placeShip(ship, 1, 1, 'vertical')
-  gameboard.finalizeBoard()
   expect(gameboard.recieveAttack(1, 1)).toBe(true)
+  expect(gameboard.board[1][1].isHit()).toBe(true)
   expect(gameboard.board[1][1].ship.hits).toBe(1)
 })
 

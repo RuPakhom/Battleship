@@ -1,2 +1,4 @@
 import './style.css'
-console.log('1')
+import { Game } from './Game.js'
+
+Game()

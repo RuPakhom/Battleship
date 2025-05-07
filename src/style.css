@@ -1,3 +1,52 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
 body{
     height: 100vh;
+    background: linear-gradient(#0B3D91, #87CEFA);
+    font-family: sans-serif;
 }
+
+.gameboard{
+    display:flex;
+    margin:10px;
+    gap:50px;
+    justify-content: center;
+}
+
+.player-board{
+    display:grid;
+    grid-template-columns: repeat(10,40px);
+    grid-template-rows: repeat(10,40px);
+
+}
+
+.cell{
+    border:1px solid #4682B4;
+    background-color:#ADD8E6;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:40px;
+}
+
+.cell.empty{
+    background-color:#ADD8E6
+}
+
+.cell.ship{
+    background-color: #2F4F4F;
+}
+
+.cell.miss{
+    color:#4682B4;
+}
+
+.cell.hit{
+    background-color: #2F4F4F;
+    color:#FF4C4C
+}
+
