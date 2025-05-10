@@ -30,7 +30,7 @@ export function Game() {
 
       if (opponentType === 'ai') {
         randomShipArrangement(player2)
-        player2.gameboard.finalizeBoard
+        player2.gameboard.finalizeBoard()
         currentPlayer = player1
         opponent = player2
         ui.renderPlayerBoard(player1)
@@ -63,7 +63,7 @@ export function Game() {
           ui.renderPlayerBoard(player1)
           ui.renderOpponentBoard(player2)
           ui.onOpponentClick(handleAttack)
-          ui.enableBoard
+          ui.enableBoard()
         })
       }
     })
