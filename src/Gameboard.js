@@ -79,6 +79,15 @@ export class Gameboard {
 
     if (this.board[x][y].isShip()) {
       this.board[x][y].hitShip()
+      const ship = this.board[x][y].ship
+
+      if (this.board[x][y].ship.isSunk()) {
+        for (let i = 0; i < 10; i++) {
+          for (let j = 0; j < 10; j++) {
+            if (this.board[i][j].ship === ship) this.board[i][j].markSunk()
+          }
+        }
+      }
       return true
     }
 
@@ -87,5 +96,9 @@ export class Gameboard {
 
   allShipsSunk() {
     return [...this.ships].every((item) => item.isSunk())
+  }
+
+  allShipsPlaced() {
+    return this.ships.size === 10
   }
 }

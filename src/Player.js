@@ -3,7 +3,8 @@ export class Player {
     HUMAN: 'human',
     AI: 'ai',
   }
-  constructor(type, gameboard) {
+  constructor(name, type, gameboard) {
+    this.name = name
     this.type = type
     this.gameboard = gameboard
   }

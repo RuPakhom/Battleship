@@ -1,4 +1,5 @@
 import './style.css'
 import { Game } from './Game.js'
 
-Game()
+const game = Game()
+game.startGame()

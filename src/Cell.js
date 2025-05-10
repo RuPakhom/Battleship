@@ -5,6 +5,7 @@ export class Cell {
     SHIP: 'ship',
     MISS: 'miss',
     HIT: 'hit',
+    SUNK: 'sunk',
   }
   constructor() {
     this.state = Cell.STATES.EMPTY
@@ -33,6 +34,10 @@ export class Cell {
     this.state = Cell.STATES.MISS
   }
 
+  markSunk() {
+    this.state = Cell.STATES.SUNK
+  }
+
   hitShip() {
     if (this.ship === null) throw new Error("Cell don't have a ship")
     if (this.state === Cell.STATES.HIT)
@@ -59,5 +64,9 @@ export class Cell {
 
   isHit() {
     return this.state === Cell.STATES.HIT
+  }
+
+  isSunk() {
+    return this.state === Cell.STATES.SUNK
   }
 }
